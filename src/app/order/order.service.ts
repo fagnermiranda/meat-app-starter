@@ -20,5 +20,9 @@ export class OrderService{
 
     removeItem(carItem:CarItem){
         this.carService.removeItem(carItem)
-    }  
+    } 
+    
+    itemsValue():number{
+        return this.carService.total()
+    }
 }

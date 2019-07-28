@@ -9,6 +9,8 @@ import { CarItem } from '../restaurant-detail/shopping-car/car-item.model'
 })
 export class OrderComponent implements OnInit {
 
+  delivery: number =8
+
   paymentOptions : RadioOption[] =[
     {label:"Débito", value:"D"}, 
     {label:"Crédito", value:"C"}, 
@@ -35,5 +37,9 @@ export class OrderComponent implements OnInit {
   remove(carItem: CarItem){
     this.orderService.removeItem(carItem)
   }
+
+  itemsValue():number{
+    return this.orderService.itemsValue()
+}
 
 }

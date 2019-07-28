@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RadioOption } from '../shared/radio/radio-option.model';
+import { OrderService } from './order.service'
+import { CarItem } from '../restaurant-detail/shopping-car/car-item.model'
 
 @Component({
   selector: 'mt-order',
@@ -13,10 +15,25 @@ export class OrderComponent implements OnInit {
     {label:"Boleto", value:"B"} 
   ]
    
-
-  constructor() { }
+  constructor(private orderService: OrderService) { }
 
   ngOnInit() {
+  }
+  
+  carItems(): CarItem[]{
+    return this.orderService.carItems()
+  }
+
+  increaseQty(carItem: CarItem){
+    this.orderService.increaseQty(carItem)
+  }
+
+  decreaseQty(carItem: CarItem){
+      this.orderService.decreaseQty(carItem)
+  }
+
+  remove(carItem: CarItem){
+    this.orderService.removeItem(carItem)
   }
 
 }

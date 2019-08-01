@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RadioOption } from '../shared/radio/radio-option.model';
 import { OrderService } from './order.service'
 import { CarItem } from '../restaurant-detail/shopping-car/car-item.model'
+import { Order, OrderItem } from './order.model'
 
 @Component({
   selector: 'mt-order',
@@ -40,6 +41,20 @@ export class OrderComponent implements OnInit {
 
   itemsValue():number{
     return this.orderService.itemsValue()
-}
+  }
+
+  checkOrder(order: Order){
+    order.orderItems = this.carItems()
+    //transforma o array de carItem em OrderItem
+    .map((carItem: CarItem)=> new OrderItem(carItem.quantidade, carItem.menuItem.id))
+
+    this.orderService.checkOrder(order)
+    .subscribe( (orderId: string)=> {
+      console.log(`Compra Concluida:${orderId}`)
+      this.orderService.clear()
+    } )
+    console.log(order)
+  }
+
 
 }
